@@ -6,6 +6,7 @@ import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), svgr()],
+  base: "Think1st",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
