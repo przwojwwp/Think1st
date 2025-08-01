@@ -1,5 +1,7 @@
-Landing page built with **React + TypeScript + Vite**.
-Deployed on GitHub Pages: [Demo](https://przwojwwp.github.io/think1st)
+Landing page built with **React + TypeScript + Vite**
+
+**Deployed on GitHub Pages:**
+[Demo](https://przwojwwp.github.io/think1st)
 
 ## 🚀 Tech stack
 
