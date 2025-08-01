@@ -15,7 +15,6 @@ export const DayCell = React.memo(
     const base =
       "mx-auto flex h-8 w-8 items-center justify-center rounded-full hover:bg-border-default focus:outline-none focus:bg-border-focus focus:text-white cursor-pointer";
     const state = blocked ? "text-[#898DA9]" : "text-text ";
-    // const selectedCls = selected ? "bg-border-focus text-white" : " ";
 
     return (
       <button

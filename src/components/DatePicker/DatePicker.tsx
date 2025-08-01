@@ -1,9 +1,9 @@
-import { DayCell } from "./DayCell";
+import { DayCell } from "./components/DayCell";
 import { WEEKDAYS, ymd } from "@/utlis/date";
-import { useCalendar } from "../../hooks/useCalendar";
+import { useCalendar } from "./hooks/useCalendar";
 import PolygonButton from "@/assets/icon/polygon.svg?react";
 import ErrorIcon from "@/assets/icon/error-icon.svg?react";
-import { TimeSlots } from "./TimeSlots";
+import { TimeSlots } from "./components/TimeSlots";
 import { useState } from "react";
 
 export const DatePicker = () => {
