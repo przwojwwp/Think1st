@@ -1,12 +1,34 @@
+import { useEffect, useRef, useState } from "react";
 import { DayCell } from "./components/DayCell";
 import { WEEKDAYS, ymd } from "@/utlis/date";
 import { useCalendar } from "./hooks/useCalendar";
 import PolygonButton from "@/assets/icon/polygon.svg?react";
-import ErrorIcon from "@/assets/icon/error-icon.svg?react";
+import InformationIcon from "@/assets/icon/information-icon.svg?react";
 import { TimeSlots } from "./components/TimeSlots";
-import { useState } from "react";
+import ExclamationMarkIcon from "@assets/icon/exclamation-mark-icon.svg?react";
 
-export const DatePicker = () => {
+type DatePickerProps = {
+  required?: boolean;
+  onDateChange?: (isoYmd: string) => void;
+  onTimeChange?: (hhmm: string) => void;
+};
+
+export const DatePicker: React.FC<DatePickerProps> = ({
+  required = false,
+  onDateChange,
+  onTimeChange,
+}) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [showErrors, setShowErrors] = useState(false);
+
+  useEffect(() => {
+    const form = rootRef.current?.closest("form");
+    if (!form) return;
+    const onSubmit = () => setShowErrors(true);
+    form.addEventListener("submit", onSubmit, true);
+    return () => form.removeEventListener("submit", onSubmit, true);
+  }, []);
+
   const {
     cursor,
     setCursor,
@@ -22,19 +44,30 @@ export const DatePicker = () => {
   } = useCalendar("PL");
 
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
   const prevMonth = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1);
   const disablePrev =
     prevMonth <
     new Date(startOfToday.getFullYear(), startOfToday.getMonth(), 1);
-
   const isSelectedSunday = Boolean(selected && selected.getDay() === 0);
 
+  const canPickTime = !!selected && !nationalHoliday && !isSelectedSunday;
+
+  const needDay = required && showErrors && !selected;
+  const needTime = required && showErrors && canPickTime && !selectedTime;
+  const needsAttention = needDay || needTime;
+
   return (
-    <div className="relative w-form">
+    <div id="date-section" ref={rootRef} className="relative w-form">
       <label className="mb-2 block">Date</label>
 
       {!loading && (
-        <div className="flex flex-col w-calendar min-h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6">
+        <div
+          className={[
+            "flex flex-col w-calendar min-h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6",
+            needsAttention ? "ring-2 ring-red-500" : "",
+          ].join(" ")}
+        >
           <div className="mb-3 h-6 flex items-center justify-between">
             <button
               type="button"
@@ -68,10 +101,7 @@ export const DatePicker = () => {
                 setCursor((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))
               }
             >
-              <PolygonButton
-                className="w-4 h-4 text-border-default group-hover:stroke-border-focus group-hover:text-border-focus
-            rotate-180"
-              />
+              <PolygonButton className="w-4 h-4 text-border-default group-hover:stroke-border-focus group-hover:text-border-focus rotate-180" />
             </button>
           </div>
 
@@ -86,7 +116,6 @@ export const DatePicker = () => {
           <div className="grid grid-cols-7 gap-y-1">
             {cells.map((cell, idx) => {
               if (!cell.date) return <div key={`e-${idx}`} />;
-
               const key = ymd(cell.date);
               const isBlocked = !!cell.blocked;
               const isSelected = Boolean(selected && ymd(selected) === key);
@@ -97,40 +126,93 @@ export const DatePicker = () => {
                   date={cell.date}
                   blocked={isBlocked}
                   selected={isSelected}
-                  onSelect={setSelected}
+                  onSelect={(d) => {
+                    setSelected(d);
+                    setSelectedTime(null);
+                    onDateChange?.(ymd(d));
+                    onTimeChange?.("");
+                  }}
                 />
               );
             })}
           </div>
-          {selected && !nationalHoliday && !isSelectedSunday && (
+
+          {canPickTime && (
             <TimeSlots
               selectedDate={selected}
               value={selectedTime}
-              onChange={setSelectedTime}
-              slots={["12:00", "14:00", "16:30", "18:30", "20:00"]}
+              onChange={(t) => {
+                setSelectedTime(t);
+                onTimeChange?.(t || "");
+              }}
             />
           )}
 
           <input
-            type="hidden"
+            type="text"
             name="date"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="sr-only"
             value={selected ? ymd(selected) : ""}
-            required
+            onChange={() => {}}
+            required={required}
           />
-          <input type="hidden" name="time" value={selectedTime ?? ""} />
+          <input
+            type="text"
+            name="time"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="sr-only"
+            value={selectedTime ?? ""}
+            onChange={() => {}}
+            required={required}
+          />
         </div>
       )}
 
+      {required && showErrors && !selected && (
+        <div className="h-7 mt-2 text-sm">
+          <div className="flex items-start h-7 gap-2">
+            <span aria-hidden>
+              <ExclamationMarkIcon />
+            </span>
+            <div className="whitespace-pre-line h-6.75 leading-3.25">
+              Please select a day.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {required &&
+        showErrors &&
+        selected &&
+        !isSelectedSunday &&
+        !nationalHoliday &&
+        !selectedTime && (
+          <div className="h-7 mt-2 text-sm">
+            <div className="flex items-start h-7 gap-2">
+              <span aria-hidden>
+                <ExclamationMarkIcon />
+              </span>
+              <div className="whitespace-pre-line h-6.75 leading-3.25">
+                Please select a time.
+              </div>
+            </div>
+          </div>
+        )}
+
       {isSelectedSunday && (
         <p className="flex h-4.5 mt-2 text-sm">
-          <ErrorIcon className="ml-0.5 mr-2" /> We are closed. It is Sunday.
+          <InformationIcon className="ml-0.5 mr-2" /> We are closed. It is
+          Sunday.
         </p>
       )}
 
       {observances.length > 0 && (
         <div className="flex h-4.5 mt-2 text-sm" role="status">
-          <ErrorIcon className="ml-0.5 mr-2" />
-          {observances}
+          <InformationIcon className="ml-0.5 mr-2" />
+          {observances.join(" • ")}
         </div>
       )}
 

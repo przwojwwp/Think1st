@@ -63,7 +63,7 @@ export const TimeSlots: React.FC<Props> = ({
                 disabled
                   ? "cursor-not-allowed opacity-50 text-gray"
                   : "hover:bg-border-default cursor-pointer",
-                selected ? "focus:border-border-focus focus:border-thick" : "",
+                selected ? "border-border-focus border-thick" : "",
               ].join(" ")}
             >
               {t}
