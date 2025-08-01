@@ -92,10 +92,10 @@ export const FormPage = () => {
   };
 
   return (
-    <section className="min-h-screen max-w-full flex items-center justify-center">
+    <section className="min-h-screen min-w-full flex items-center justify-center">
       <form
         ref={formRef}
-        className="flex flex-col w-form"
+        className="flex flex-col w-form m-6 content-box"
         method="post"
         noValidate
         aria-describedby="form-help"
@@ -170,7 +170,7 @@ export const FormPage = () => {
         <button
           type="submit"
           aria-disabled={submitDisabled}
-          className={`w-form h-11.25 mt-12 px-4 py-2 rounded-md text-white transition ${
+          className={`w-form h-11.25 mt-6 px-4 py-2 rounded-md text-white transition ${
             submitDisabled
               ? "bg-[#CBB6E5] cursor-default"
               : "bg-border-focus hover:bg-[#6A19CD] cursor-pointer"

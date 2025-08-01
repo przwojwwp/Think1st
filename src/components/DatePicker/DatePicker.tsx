@@ -63,7 +63,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
       <div
         className={[
-          "flex flex-col w-calendar min-h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6",
+          "flex flex-col w-calendar min-h-calendar rounded-lg border border-border-default bg-bg-light box-content mb-6 p-6 max-[450px]:p-8 max-[450px]:w-calendar-mobile",
           needsAttention ? "ring-2 ring-red-500" : "",
         ].join(" ")}
       >
@@ -133,39 +133,38 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             );
           })}
         </div>
-
-        {canPickTime && (
-          <TimeSlots
-            selectedDate={selected}
-            value={selectedTime}
-            onChange={(t) => {
-              setSelectedTime(t);
-              onTimeChange?.(t || "");
-            }}
-          />
-        )}
-
-        <input
-          type="text"
-          name="date"
-          tabIndex={-1}
-          aria-hidden="true"
-          className="sr-only"
-          value={selected ? ymd(selected) : ""}
-          onChange={() => {}}
-          required={required}
-        />
-        <input
-          type="text"
-          name="time"
-          tabIndex={-1}
-          aria-hidden="true"
-          className="sr-only"
-          value={selectedTime ?? ""}
-          onChange={() => {}}
-          required={required}
-        />
       </div>
+      {canPickTime && (
+        <TimeSlots
+          selectedDate={selected}
+          value={selectedTime}
+          onChange={(t) => {
+            setSelectedTime(t);
+            onTimeChange?.(t || "");
+          }}
+        />
+      )}
+
+      <input
+        type="text"
+        name="date"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="sr-only"
+        value={selected ? ymd(selected) : ""}
+        onChange={() => {}}
+        required={required}
+      />
+      <input
+        type="text"
+        name="time"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="sr-only"
+        value={selectedTime ?? ""}
+        onChange={() => {}}
+        required={required}
+      />
 
       {required && showErrors && !selected && (
         <div className="h-full mt-2 text-sm">

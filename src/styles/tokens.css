@@ -16,4 +16,5 @@
   --width-form: clamp(342px, 100%, 426px);
   --width-calendar: 276px;
   --height-calendar: 242px;
+  --width-calendar-mobile: calc(100% - 66px)
 }

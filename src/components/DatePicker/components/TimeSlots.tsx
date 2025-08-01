@@ -46,8 +46,12 @@ export const TimeSlots: React.FC<Props> = ({
   const allDisabled = !selectedDate || selectedDate < startOfToday;
 
   return (
-    <div className="absolute top-5 right-0 ml-4">
-      <div className="flex flex-col gap-2">
+    <div className="absolute top-5 right-0 mb-6 m-0 max-[450px]:static max-[450px]:block">
+      <span className="hidden max-[450px]:block">Time</span>
+      <span className="max-[450px]:hidden min-[450px]:absolute min-[450px]:top-[-26px] min-[450px]:left-0">
+        Time
+      </span>
+      <div className="flex flex-col gap-2 max-[450px]:flex-row max-[450px]:flex-wrap">
         {slots.map((t) => {
           const disabled = allDisabled || isPastTime(t);
           const selected = value === t;
@@ -59,7 +63,7 @@ export const TimeSlots: React.FC<Props> = ({
               disabled={disabled}
               onClick={() => onChange(disabled ? null : t)}
               className={[
-                "h-11 w-19 rounded-md border border border-border-default bg-bg-light text-s text-400",
+                "h-11 w-19 rounded-md border border border-border-default bg-bg-light text-s text-400 max-[450px]:w-20",
                 disabled
                   ? "cursor-not-allowed opacity-50 text-gray"
                   : "hover:bg-border-default cursor-pointer",
