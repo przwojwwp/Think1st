@@ -102,7 +102,7 @@ export const DatePicker = () => {
               );
             })}
           </div>
-          {selected && !nationalHoliday && (
+          {selected && !nationalHoliday && !isSelectedSunday && (
             <TimeSlots
               selectedDate={selected}
               value={selectedTime}
