@@ -62,6 +62,16 @@ export const FormPage = () => {
 
         <h2>Your workout</h2>
         <DatePicker />
+
+
+          <button
+            type="submit"
+            className="w-form h-11.25 mt-12 px-4 py-2 rounded-md bg-purple-600 text-white disabled:opacity-50"
+            // disabled={isSubmitDisabled}
+          >
+            Send Application
+          </button>
+
       </form>
     </section>
   );
