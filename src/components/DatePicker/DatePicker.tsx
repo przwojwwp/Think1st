@@ -15,24 +15,26 @@ export const DatePicker = () => {
     cells,
     monthLabel,
     observances,
+    nationalHoliday,
     loading,
     error,
     startOfToday,
   } = useCalendar("PL");
 
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-
   const prevMonth = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1);
   const disablePrev =
     prevMonth <
     new Date(startOfToday.getFullYear(), startOfToday.getMonth(), 1);
+
+  const isSelectedSunday = Boolean(selected && selected.getDay() === 0);
 
   return (
     <div className="relative w-form">
       <label className="mb-2 block">Date</label>
 
       {!loading && (
-        <div className="flex flex-col w-calendar h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6">
+        <div className="flex flex-col w-calendar min-h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6">
           <div className="mb-3 h-6 flex items-center justify-between">
             <button
               type="button"
@@ -100,7 +102,7 @@ export const DatePicker = () => {
               );
             })}
           </div>
-          {selected && (
+          {selected && !nationalHoliday && (
             <TimeSlots
               selectedDate={selected}
               value={selectedTime}
@@ -109,6 +111,12 @@ export const DatePicker = () => {
             />
           )}
         </div>
+      )}
+
+      {isSelectedSunday && (
+        <p className="flex h-4.5 mt-2 text-sm">
+          <ErrorIcon className="ml-0.5 mr-2" /> We are closed. It is Sunday.
+        </p>
       )}
 
       {observances.length > 0 && (

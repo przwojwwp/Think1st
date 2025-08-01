@@ -53,6 +53,11 @@ export function useCalendar(country = "PL") {
       ? holidaysByDate[selectedKey]!.observanceNames
       : [];
 
+  const nationalHoliday =
+    selectedKey && holidaysByDate?.[selectedKey]?.isNationalHoliday
+      ? true
+      : false;
+
   return {
     cursor,
     setCursor,
@@ -64,6 +69,7 @@ export function useCalendar(country = "PL") {
     cells,
     monthLabel,
     observances,
+    nationalHoliday,
     startOfToday,
   };
 }

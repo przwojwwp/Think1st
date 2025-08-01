@@ -13,21 +13,18 @@ export const DayCell = React.memo(
     const key = ymd(date);
 
     const base =
-      "mx-auto flex h-8 w-8 items-center justify-center rounded-full ";
-    const state = blocked
-      ? "text-color-gray opacity-50 cursor-not-allowed"
-      : "text-text hover:bg-border-default focus:outline-none focus:bg-border-focus cursor-pointer";
-    const selectedCls = selected ? "bg-border-focus text-white" : "";
+      "mx-auto flex h-8 w-8 items-center justify-center rounded-full hover:bg-border-default focus:outline-none focus:bg-border-focus focus:text-white cursor-pointer";
+    const state = blocked ? "text-[#898DA9]" : "text-text ";
+    // const selectedCls = selected ? "bg-border-focus text-white" : " ";
 
     return (
       <button
         key={key}
         type="button"
-        disabled={blocked}
         onClick={() => {
           onSelect(date);
         }}
-        className={[base, state, selectedCls].join(" ")}
+        className={[base, state].join(" ")}
         aria-disabled={blocked}
         aria-pressed={selected}
         aria-label={date.toDateString()}

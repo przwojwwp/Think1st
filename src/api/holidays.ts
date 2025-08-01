@@ -37,6 +37,7 @@ export function toHolidaysByDate(entries: HolidayApiEntry[]): HolidaysByDate {
       (out[h.date] = { isNationalHoliday: false, observanceNames: [] });
 
     if (isNat) slot.isNationalHoliday = true;
+    if (isNat) slot.observanceNames.push(h.name)
     if (isObs) slot.observanceNames.push(h.name);
   }
   return out;
