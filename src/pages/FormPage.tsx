@@ -125,7 +125,6 @@ export const FormPage = () => {
           label="Photo"
           name="attachments"
           accept=".pdf,.doc,.docx,image/*"
-          multiple
         />
 
         <h2>Your workout</h2>

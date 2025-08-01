@@ -115,6 +115,7 @@ export const DatePicker = () => {
             type="hidden"
             name="date"
             value={selected ? ymd(selected) : ""}
+            required
           />
           <input type="hidden" name="time" value={selectedTime ?? ""} />
         </div>
