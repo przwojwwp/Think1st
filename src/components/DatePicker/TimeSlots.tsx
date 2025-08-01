@@ -47,7 +47,6 @@ export const TimeSlots: React.FC<Props> = ({
 
   return (
     <div className="absolute top-5 right-0 ml-4">
-
       <div className="flex flex-col gap-2">
         {slots.map((t) => {
           const disabled = allDisabled || isPastTime(t);
@@ -60,11 +59,11 @@ export const TimeSlots: React.FC<Props> = ({
               disabled={disabled}
               onClick={() => onChange(disabled ? null : t)}
               className={[
-                "h-10 w-24 rounded-md border border-border-default text-sm",
+                "h-11 w-19 rounded-md border border border-border-default bg-bg-light text-s text-400",
                 disabled
-                  ? "cursor-not-allowed opacity-50 text-gray-500"
-                  : "hover:bg-purple-50",
-                selected ? "ring-2 ring-purple-400 border-purple-400" : "",
+                  ? "cursor-not-allowed opacity-50 text-gray"
+                  : "hover:bg-border-default cursor-pointer",
+                selected ? "focus:border-border-focus focus:border-thick" : "",
               ].join(" ")}
             >
               {t}
