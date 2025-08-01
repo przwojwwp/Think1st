@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply font-sans bg-bg text-text p-4;
+    @apply font-sans bg-bg text-text pt-30 pb-30;
   }
 
   h2 {
