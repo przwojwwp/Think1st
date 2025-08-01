@@ -168,12 +168,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       </div>
 
       {required && showErrors && !selected && (
-        <div className="h-7 mt-2 text-sm">
-          <div className="flex items-start h-7 gap-2">
+        <div className="h-full mt-2 text-sm">
+          <div className="flex items-start h-full gap-2">
             <span aria-hidden>
               <ExclamationMarkIcon />
             </span>
-            <div className="whitespace-pre-line h-6.75 leading-3.25">
+            <div className="whitespace-pre-line h-full leading-3.25">
               Please select a day.
             </div>
           </div>
@@ -186,12 +186,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         !isSelectedSunday &&
         !nationalHoliday &&
         !selectedTime && (
-          <div className="h-7 mt-2 text-sm">
-            <div className="flex items-start h-7 gap-2">
+          <div className="h-full mt-2 text-sm">
+            <div className="flex items-start h-full gap-2">
               <span aria-hidden>
                 <ExclamationMarkIcon />
               </span>
-              <div className="whitespace-pre-line h-6.75 leading-3.25">
+              <div className="whitespace-pre-line h-full leading-3.25">
                 Please select a time.
               </div>
             </div>
