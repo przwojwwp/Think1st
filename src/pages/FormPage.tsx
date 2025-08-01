@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { FileDrop } from "../components/FileDrop";
 import { DatePicker } from "../components/DatePicker/DatePicker";
 import type { LeavedKey } from "@/types/leavedKey";
+import "./formPage.css";
 
 export const FormPage = () => {
   const [age, setAge] = useState<number>(8);
