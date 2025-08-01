@@ -110,6 +110,13 @@ export const DatePicker = () => {
               slots={["12:00", "14:00", "16:30", "18:30", "20:00"]}
             />
           )}
+
+          <input
+            type="hidden"
+            name="date"
+            value={selected ? ymd(selected) : ""}
+          />
+          <input type="hidden" name="time" value={selectedTime ?? ""} />
         </div>
       )}
 

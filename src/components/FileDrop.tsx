@@ -13,7 +13,7 @@ export const FileDrop: React.FC<FileDropProps> = ({
   name,
   accept,
   multiple = false,
-  required = true,
+  required = false,
 }) => {
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
