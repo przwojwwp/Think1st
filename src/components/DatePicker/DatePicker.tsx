@@ -4,6 +4,7 @@ import { useCalendar } from "./useCalendar";
 
 export const DatePicker = () => {
   const {
+    cursor,
     setCursor,
     selected,
     setSelected,
@@ -12,7 +13,13 @@ export const DatePicker = () => {
     observances,
     loading,
     error,
+    startOfToday,
   } = useCalendar("PL");
+
+  const prevMonth = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1);
+  const disablePrev =
+    prevMonth <
+    new Date(startOfToday.getFullYear(), startOfToday.getMonth(), 1);
 
   return (
     <div className="w-form">
@@ -23,6 +30,7 @@ export const DatePicker = () => {
           <button
             type="button"
             aria-label="Previous month"
+            disabled={disablePrev}
             className="h-7 w-7 rounded-md text-purple-500 hover:bg-purple-50"
             onClick={() =>
               setCursor((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))

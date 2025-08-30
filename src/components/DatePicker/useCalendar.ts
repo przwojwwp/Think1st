@@ -34,7 +34,7 @@ export function useCalendar(country = "PL") {
 
       const isSunday = date.getDay() === 0;
       const isNat = !!holidaysByDate?.[key]?.isNationalHoliday;
-      const isPast = date < startOfToday; // 👈 NOWE
+      const isPast = date < startOfToday;
 
       items.push({ date, blocked: isSunday || isNat || isPast });
     }
