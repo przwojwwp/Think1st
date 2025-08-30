@@ -1,4 +1,14 @@
+@theme {
+  --bubble-gap: 12px;
+  --bubble-h: 25px;
+  --bubble-space: calc(var(--bubble-gap) + var(--bubble-h));
+}
+
 @layer components {
+  .range-wrap {
+    padding-bottom: var(--bubble-space);
+  }
+
   .range {
     @apply w-full appearance-none bg-transparent cursor-pointer;
   }
@@ -85,8 +95,8 @@
 
   .bubble-value::after {
     top: -7px;
-    border-left: 4.5px solid transparent;
-    border-right: 4.5px solid transparent;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
     border-bottom: 8px solid #faf9fa;
   }
 }

@@ -36,7 +36,7 @@ export const Range: React.FC<RangeProps> = ({
         <span>{max}</span>
       </div>
 
-      <div className="relative h-0">
+      <div className="relative range-wrap">
         <input
           id={id}
           name={name}
