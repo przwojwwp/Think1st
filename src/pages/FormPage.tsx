@@ -2,7 +2,7 @@ import { TextField } from "../components/TextField";
 import { Range } from "../components/Range";
 import { useState } from "react";
 import { FileDrop } from "../components/FileDrop";
-import { DatePicker } from "../components/DatePicker";
+import { DatePicker } from "../components/DatePicker/DatePicker";
 
 export const FormPage = () => {
   const [age, setAge] = useState<number>(8);
