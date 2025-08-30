@@ -24,7 +24,9 @@ export const DayCell = React.memo(
         key={key}
         type="button"
         disabled={blocked}
-        onClick={() => onSelect(date)}
+        onClick={() => {
+          onSelect(date);
+        }}
         className={[base, state, selectedCls].join(" ")}
         aria-disabled={blocked}
         aria-pressed={selected}

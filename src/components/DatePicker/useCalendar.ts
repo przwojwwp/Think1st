@@ -9,10 +9,15 @@ export function useCalendar(country = "PL") {
 
   const [cursor, setCursor] = useState(() => {
     const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return new Date(now.getFullYear(), now.getMonth(), 1);
   });
 
   const [selected, setSelected] = useState<Date | null>(null);
+
+  const startOfToday = useMemo(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  }, []);
 
   const { cells, monthLabel } = useMemo(() => {
     const year = cursor.getFullYear();
@@ -26,10 +31,12 @@ export function useCalendar(country = "PL") {
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
       const key = ymd(date);
+
       const isSunday = date.getDay() === 0;
       const isNat = !!holidaysByDate?.[key]?.isNationalHoliday;
+      const isPast = date < startOfToday; // 👈 NOWE
 
-      items.push({ date, blocked: isSunday || isNat });
+      items.push({ date, blocked: isSunday || isNat || isPast });
     }
 
     const label = cursor.toLocaleString("en-US", {
@@ -38,7 +45,7 @@ export function useCalendar(country = "PL") {
     });
 
     return { cells: items, monthLabel: label };
-  }, [cursor, holidaysByDate]);
+  }, [cursor, holidaysByDate, startOfToday]);
 
   const selectedKey = selected ? ymd(selected) : null;
   const observances =
@@ -57,5 +64,6 @@ export function useCalendar(country = "PL") {
     cells,
     monthLabel,
     observances,
+    startOfToday,
   };
 }
