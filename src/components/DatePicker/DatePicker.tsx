@@ -1,52 +1,18 @@
-import { useMemo, useState } from "react";
-import { useHolidays } from "@/hooks/useHolidays";
-
-const WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-
-const ymd = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-    d.getDate()
-  ).padStart(2, "0")}`;
+import { DayCell } from "./components/DayCell";
+import { WEEKDAYS, ymd } from "@/utlis/date";
+import { useCalendar } from "./useCalendar";
 
 export const DatePicker = () => {
-  const { data: holidaysByDate, loading, error } = useHolidays("PL");
-
-  const [cursor, setCursor] = useState(() => {
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  });
-
-  const [selected, setSelected] = useState<Date | null>(null);
-
-  const { cells, monthLabel } = useMemo(() => {
-    const year = cursor.getFullYear();
-    const month = cursor.getMonth();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const offset = (new Date(year, month, 1).getDay() + 6) % 7;
-    const items: { date: Date | null; blocked?: boolean }[] = [];
-
-    for (let i = 0; i < offset; i++) items.push({ date: null });
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const key = ymd(date);
-      const isSunday = date.getDay() === 0;
-      const isNat = !!holidaysByDate?.[key]?.isNationalHoliday;
-      items.push({ date, blocked: isSunday || isNat });
-    }
-
-    const label = cursor.toLocaleString("en-US", {
-      month: "long",
-      year: "numeric",
-    });
-
-    return { cells: items, monthLabel: label };
-  }, [cursor, holidaysByDate]);
-
-  const selectedKey = selected ? ymd(selected) : null;
-  const observances = selectedKey
-    ? holidaysByDate?.[selectedKey]?.observanceNames ?? []
-    : [];
+  const {
+    setCursor,
+    selected,
+    setSelected,
+    cells,
+    monthLabel,
+    observances,
+    loading,
+    error,
+  } = useCalendar("PL");
 
   return (
     <div className="w-form">
@@ -90,31 +56,19 @@ export const DatePicker = () => {
         <div className="grid grid-cols-7 gap-y-1">
           {cells.map((cell, idx) => {
             if (!cell.date) return <div key={`e-${idx}`} />;
+
             const key = ymd(cell.date);
             const isBlocked = !!cell.blocked;
             const isSelected = Boolean(selected && ymd(selected) === key);
 
             return (
-              <button
+              <DayCell
                 key={key}
-                type="button"
-                disabled={isBlocked}
-                onClick={() => {
-                  setSelected(cell.date!);
-                }}
-                className={[
-                  "mx-auto flex h-8 w-8 items-center justify-center rounded-full",
-                  isBlocked
-                    ? "text-gray-400 opacity-50 cursor-not-allowed"
-                    : "text-text hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-300",
-                  isSelected ? "bg-purple-600 text-white" : "",
-                ].join(" ")}
-                aria-disabled={isBlocked}
-                aria-pressed={isSelected}
-                aria-label={cell.date.toDateString()}
-              >
-                {cell.date.getDate()}
-              </button>
+                date={cell.date}
+                blocked={isBlocked}
+                selected={isSelected}
+                onSelect={setSelected}
+              />
             );
           })}
         </div>
