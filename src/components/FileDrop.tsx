@@ -18,6 +18,8 @@ export const FileDrop: React.FC<FileDropProps> = ({
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const id = `field-${name}`;
+
   return (
     <div className="flex flex-col w-form mb-6">
       <label htmlFor={name}>{label}</label>
@@ -59,7 +61,7 @@ export const FileDrop: React.FC<FileDropProps> = ({
 
       <input
         ref={inputRef}
-        id={name}
+        id={id}
         name={name}
         className="sr-only"
         type="file"
