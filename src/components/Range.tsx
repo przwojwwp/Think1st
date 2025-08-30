@@ -22,6 +22,7 @@ export const Range: React.FC<RangeProps> = ({
   onChange,
 }) => {
   const id = `range-${name}`;
+
   const thumb = 16;
   const p = (value - min) / (max - min);
   const offsetPx = thumb / 2 - p * thumb;

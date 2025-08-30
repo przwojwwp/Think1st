@@ -1,0 +1,17 @@
+@layer components {
+  .dropzone {
+    @apply flex items-center justify-center
+           w-full h-[96px]
+           px-4 py-3
+           rounded-lg border border-border-default bg-white
+           outline-none transition;
+  }
+
+  .dropzone:hover,
+  .dropzone:focus,
+  .dropzone:focus-visible,
+  .dropzone:focus-within,
+  .dropzone[data-drag="true"] {
+    @apply border-thick border-border-focus;
+  }
+}

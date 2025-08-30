@@ -1,6 +1,7 @@
 import { TextField } from "../components/TextField";
 import { Range } from "../components/Range";
 import { useState } from "react";
+import { FileDrop } from "../components/FileDrop";
 
 export const FormPage = () => {
   const [age, setAge] = useState<number>(8);
@@ -49,6 +50,13 @@ export const FormPage = () => {
           value={age}
           required
           onChange={setAge}
+        />
+
+        <FileDrop
+          label="Photo"
+          name="attachments"
+          accept=".pdf,.doc,.docx,image/*"
+          multiple
         />
       </form>
     </section>
