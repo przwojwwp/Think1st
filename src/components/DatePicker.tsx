@@ -1,61 +1,15 @@
-import { useEffect, useRef } from "react";
-
-type HolidayApiEntry = { name: string; date: string; type: string };
-
-type DayHolidayInfo = {
-  isNationalHoliday: boolean;
-  observanceNames: string[];
-};
-
-type HolidaysByDate = Record<string, DayHolidayInfo>;
-
-const API_KEY = import.meta.env.VITE_API_NINJAS_KEY!;
-const COUNTRY = "PL";
+import { useHolidays } from "@/hooks/useHolidays";
 
 export const DatePicker = () => {
-  const didRun = useRef(false);
+  const { data: holidaysByDate, loading, error } = useHolidays("PL");
 
-  useEffect(() => {
-    if (didRun.current) return;
-    didRun.current = true;
+  if (holidaysByDate) console.log("[Holidays PL → by date]", holidaysByDate);
 
-    (async () => {
-      try {
-        const res = await fetch(
-          `https://api.api-ninjas.com/v1/holidays?country=${COUNTRY}`,
-          { headers: { "X-Api-Key": API_KEY } }
-        );
-        const text = await res.text();
-        if (!res.ok) {
-          console.error("[Holidays ERROR]", res.status, text);
-          return;
-        }
-
-        const apiData = JSON.parse(text) as HolidayApiEntry[];
-
-        const holidaysByDate: HolidaysByDate = apiData.reduce((acc, h) => {
-          const key = h.date;
-          const typeUpper = h.type.toUpperCase();
-          const isNat = typeUpper === "NATIONAL_HOLIDAY";
-          const isObs = typeUpper.includes("OBSERVANCE");
-          if (!isNat && !isObs) return acc;
-
-          const entry =
-            acc[key] ??
-            (acc[key] = { isNationalHoliday: false, observanceNames: [] });
-
-          if (isNat) entry.isNationalHoliday = true;
-          if (isObs) entry.observanceNames.push(h.name);
-
-          return acc;
-        }, {} as HolidaysByDate);
-
-        console.log("[Holidays PL → by date]", holidaysByDate);
-      } catch (e) {
-        console.error("[Holidays fetch failed]", e);
-      }
-    })();
-  }, []);
-
-  return <div>DatePicker</div>;
+  return (
+    <div>
+      {loading && <p className="text-sm text-gray-500">Loading calendar</p>}
+      {error && <p className="text-sm text-red-600">Failed to load calendar</p>}
+      {!loading && !error && <p className="text-sm">DatePicker</p>}
+    </div>
+  );
 };
