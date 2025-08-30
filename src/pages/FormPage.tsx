@@ -2,6 +2,7 @@ import { TextField } from "../components/TextField";
 import { Range } from "../components/Range";
 import { useState } from "react";
 import { FileDrop } from "../components/FileDrop";
+import { DatePicker } from "../components/DatePicker";
 
 export const FormPage = () => {
   const [age, setAge] = useState<number>(8);
@@ -58,6 +59,8 @@ export const FormPage = () => {
           accept=".pdf,.doc,.docx,image/*"
           multiple
         />
+
+        <DatePicker />
       </form>
     </section>
   );
