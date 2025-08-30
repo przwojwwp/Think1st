@@ -1,0 +1,92 @@
+@layer components {
+  .range {
+    @apply w-full appearance-none bg-transparent cursor-pointer;
+  }
+
+  .range::-webkit-slider-runnable-track {
+    height: 4px;
+    background-color: var(--color-border-default);
+    border-radius: 9999px;
+  }
+
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 9999px;
+    background: var(--color-border-focus);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    margin-top: calc((4px - 16px) / 2);
+  }
+
+  .range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px
+      color-mix(in srgb, var(--color-border-focus) 25%, transparent);
+  }
+
+  .range::-moz-range-track {
+    height: 4px;
+    background: var(--color-border-default);
+    border-radius: 9999px;
+    border: none;
+  }
+
+  .range::-moz-range-progress {
+    height: 4px;
+    background: var(--color-border-default);
+    border-radius: 9999px;
+    border: none;
+  }
+
+  .range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    border: 0;
+    background: var(--color-border-focus);
+  }
+
+  .range:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 4px
+      color-mix(in srgb, var(--color-border-focus) 25%, transparent);
+  }
+
+  .range::-moz-focus-outer {
+    border: 0;
+  }
+
+  .bubble-value {
+    @apply relative flex items-center justify-center;
+    @apply w-[37px] h-[25px] z-10;
+    @apply border-thin border-border-default rounded-md;
+    @apply font-medium text-[12px] leading-[9px] bg-[#FAF9FA];
+  }
+
+  .bubble-value {
+    top: 12px;
+  }
+
+  .bubble-value::before,
+  .bubble-value::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+  }
+
+  .bubble-value::before {
+    top: -9px;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+    border-bottom: 8px solid var(--color-border-default);
+  }
+
+  .bubble-value::after {
+    top: -7px;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+    border-bottom: 8px solid #faf9fa;
+  }
+}

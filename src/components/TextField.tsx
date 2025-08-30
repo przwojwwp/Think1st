@@ -10,10 +10,10 @@ type Props = {
 export const TextField: React.FC<Props> = ({
   label,
   name,
-  type = "text",
+  type,
   placeholder,
   autoComplete,
-  required = false,
+  required = true,
 }) => {
   const id = `field-${name}`;
 

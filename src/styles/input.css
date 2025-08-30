@@ -1,0 +1,10 @@
+@layer components {
+  .input {
+    @apply font-medium
+    h-12 px-3 text-base
+    border-thin border-border-default rounded-lg
+    bg-form-element-bg
+    outline-none
+    focus:border-thick focus:border-border-focus;
+  }
+}

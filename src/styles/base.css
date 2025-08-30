@@ -1,0 +1,13 @@
+@layer base {
+  body {
+    @apply font-sans bg-bg text-text p-4;
+  }
+
+  h2 {
+    @apply mb-8 font-medium text-[24px] leading-[17px];
+  }
+
+  label {
+    @apply mb-2 font-normal text-[16px] leading-[12px];
+  }
+}
