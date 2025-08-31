@@ -13,11 +13,11 @@ export const DayCell = React.memo(
     const key = ymd(date);
 
     const base =
-      "mx-auto flex h-8 w-8 items-center justify-center rounded-full";
+      "mx-auto flex h-8 w-8 items-center justify-center rounded-full ";
     const state = blocked
-      ? "text-gray-400 opacity-50 cursor-not-allowed"
-      : "text-text hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-300";
-    const selectedCls = selected ? "bg-purple-600 text-white" : "";
+      ? "text-color-gray opacity-50 cursor-not-allowed"
+      : "text-text hover:bg-border-default focus:outline-none focus:bg-border-focus cursor-pointer";
+    const selectedCls = selected ? "bg-border-focus text-white" : "";
 
     return (
       <button

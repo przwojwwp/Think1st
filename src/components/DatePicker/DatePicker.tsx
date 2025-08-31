@@ -58,7 +58,7 @@ export const DatePicker = () => {
 
         <div className="mb-2 grid grid-cols-7 text-center text-sm text-text">
           {WEEKDAYS.map((w, i) => (
-            <div key={w} className={i === 6 ? "text-gray-400" : undefined}>
+            <div key={w} className={i === 6 ? "text-gray" : undefined}>
               {w}
             </div>
           ))}
