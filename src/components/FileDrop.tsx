@@ -21,7 +21,7 @@ export const FileDrop: React.FC<FileDropProps> = ({
   const id = `field-${name}`;
 
   return (
-    <div className="flex flex-col w-form mb-6">
+    <div className="flex flex-col w-form mb-12">
       <label htmlFor={name}>{label}</label>
 
       <div

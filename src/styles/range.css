@@ -74,6 +74,7 @@
 
   .bubble-value {
     top: 12px;
+    color: var(--color-border-focus);
   }
 
   .bubble-value::before,

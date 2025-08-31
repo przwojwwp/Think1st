@@ -4,8 +4,8 @@
 
   --color-text: #000853;
   --color-bg: #eee6f6;
-  --color-gray: #898DA9;
-  --color-form-element-bg: #ffffff;
+  --color-bg-light: #ffffff;
+  --color-gray: #898da9;
   --color-border-default: #cbb6e5;
   --color-border-focus: #761be4;
 
@@ -13,6 +13,6 @@
   --border-width-thick: 2px;
 
   --width-form: clamp(342px, 100%, 426px);
-  --width-calendar: 278px;
-  --height-calendar: 244px;
+  --width-calendar: 276px;
+  --height-calendar: 242px;
 }

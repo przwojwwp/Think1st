@@ -2,6 +2,8 @@ import { DayCell } from "./DayCell";
 import { WEEKDAYS, ymd } from "@/utlis/date";
 import { useCalendar } from "../../hooks/useCalendar";
 import PolygonButton from "@/assets/icon/polygon.svg?react";
+import { TimeSlots } from "./TimeSlots";
+import { useState } from "react";
 
 export const DatePicker = () => {
   const {
@@ -17,16 +19,18 @@ export const DatePicker = () => {
     startOfToday,
   } = useCalendar("PL");
 
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
   const prevMonth = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1);
   const disablePrev =
     prevMonth <
     new Date(startOfToday.getFullYear(), startOfToday.getMonth(), 1);
 
   return (
-    <div className="w-form">
+    <div className="relative w-form">
       <label className="mb-2 block">Date</label>
 
-      <div className="flex flex-col w-calendar h-calendar rounded-lg border border-border-default bg-white box-content p-6">
+      <div className="flex flex-col w-calendar h-calendar rounded-lg border border-border-default bg-bg-light box-content p-6">
         <div className="mb-3 h-6 flex items-center justify-between">
           <button
             type="button"
@@ -92,11 +96,19 @@ export const DatePicker = () => {
             );
           })}
         </div>
+        {selected && (
+          <TimeSlots
+            selectedDate={selected}
+            value={selectedTime}
+            onChange={setSelectedTime}
+            slots={["12:00", "14:00", "16:30", "18:30", "20:00"]}
+          />
+        )}
       </div>
 
       {observances.length > 0 && (
         <div
-          className="mt-3 rounded-md border border-border-default bg-white px-3 py-2 text-sm"
+          className="mt-3 rounded-md border border-border-default bg-bg-light px-3 py-2 text-sm"
           role="status"
         >
           <span className="font-medium">Observance:</span>{" "}

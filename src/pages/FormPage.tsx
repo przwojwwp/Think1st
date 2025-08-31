@@ -60,6 +60,7 @@ export const FormPage = () => {
           multiple
         />
 
+        <h2>Your workout</h2>
         <DatePicker />
       </form>
     </section>

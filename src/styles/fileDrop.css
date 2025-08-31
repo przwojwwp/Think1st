@@ -3,7 +3,7 @@
     @apply flex items-center justify-center
            w-full h-[96px]
            px-4 py-3
-           rounded-lg border border-border-default bg-white
+           rounded-lg border border-border-default bg-bg-light
            outline-none transition;
   }
 
