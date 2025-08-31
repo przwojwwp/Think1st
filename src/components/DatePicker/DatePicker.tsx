@@ -1,6 +1,7 @@
-import { DayCell } from "./components/DayCell";
+import { DayCell } from "./DayCell";
 import { WEEKDAYS, ymd } from "@/utlis/date";
-import { useCalendar } from "./useCalendar";
+import { useCalendar } from "../../hooks/useCalendar";
+import PolygonButton from "@/assets/icon/polygon.svg?react";
 
 export const DatePicker = () => {
   const {
@@ -25,31 +26,33 @@ export const DatePicker = () => {
     <div className="w-form">
       <label className="mb-2 block">Date</label>
 
-      <div className="rounded-lg border border-border-default bg-white p-4">
-        <div className="mb-3 flex items-center justify-between">
+      <div className="flex flex-col w-calendar h-calendar rounded-lg border border-border-default bg-white box-content p-6">
+        <div className="mb-3 h-6 flex items-center justify-between">
           <button
             type="button"
             aria-label="Previous month"
             disabled={disablePrev}
-            className="h-7 w-7 rounded-md text-purple-500 hover:bg-purple-50"
+            className={`flex items-center justify-center h-7 w-7 rounded-md group ${
+              disablePrev ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
             onClick={() =>
               setCursor((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))
             }
           >
-            ◄
+            <PolygonButton className="w-4 h-4 group-hover:stroke-border-focus" />
           </button>
 
-          <div className="text-center font-medium">{monthLabel}</div>
+          <div className="text-center font-medium leading-3">{monthLabel}</div>
 
           <button
             type="button"
             aria-label="Next month"
-            className="h-7 w-7 rounded-md text-purple-500 hover:bg-purple-50"
+            className="group flex items-center justify-center h-7 w-7 rounded-md cursor-pointer"
             onClick={() =>
               setCursor((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))
             }
           >
-            ►
+            <PolygonButton className="w-4 h-4 rotate-180 group-hover:stroke-border-focus" />
           </button>
         </div>
 

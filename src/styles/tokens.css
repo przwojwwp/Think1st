@@ -11,5 +11,7 @@
   --border-width-thin: 1px;
   --border-width-thick: 2px;
 
-  --spacing-form: clamp(342px, 100%, 426px);
+  --width-form: clamp(342px, 100%, 426px);
+  --width-calendar: 278px;
+  --height-calendar: 244px;
 }
