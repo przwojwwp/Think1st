@@ -39,7 +39,7 @@ export const DatePicker = () => {
               setCursor((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))
             }
           >
-            <PolygonButton className="w-4 h-4 group-hover:stroke-border-focus" />
+            <PolygonButton className="w-4 h-4 text-border-default group-hover:stroke-border-focus group-hover:text-border-focus" />
           </button>
 
           <div className="text-center font-medium leading-3">{monthLabel}</div>
@@ -52,7 +52,10 @@ export const DatePicker = () => {
               setCursor((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))
             }
           >
-            <PolygonButton className="w-4 h-4 rotate-180 group-hover:stroke-border-focus" />
+            <PolygonButton
+              className="w-4 h-4 text-border-default group-hover:stroke-border-focus group-hover:text-border-focus
+            rotate-180"
+            />
           </button>
         </div>
 
